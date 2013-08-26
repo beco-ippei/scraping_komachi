@@ -5,13 +5,8 @@ require 'ir_b'
 # スクレイピングするURL
 url = "http://komachi.yomiuri.co.jp/t/2013/0820/612572.htm?o=0&p=0"
 
-charset = nil
-html = open(url) do |f|
-  charset = f.charset
-  f.read
-end
-
-doc = Nokogiri::HTML.parse(html, nil, charset)
+html = open(url) {|f| f.read }
+doc = Nokogiri::HTML.parse(html, nil, nil)
 
 # scraping
 reses = doc.xpath('id("reslist")/tr/td/..').inject({}) do |h, td|
